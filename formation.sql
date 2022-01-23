@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 08 jan. 2022 à 22:00
+-- Généré le : dim. 23 jan. 2022 à 21:08
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 8.0.12
 
@@ -52,6 +52,25 @@ INSERT INTO `article` (`id`, `nomArticle`, `descriptionArticle`, `prixUnitaire`,
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `client`
+--
+
+CREATE TABLE `client` (
+  `iduser` int(11) NOT NULL,
+  `pseudo` varchar(255) NOT NULL,
+  `pwd` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `client`
+--
+
+INSERT INTO `client` (`iduser`, `pseudo`, `pwd`) VALUES
+(1, 'Formation', '81dc9bdb52d04dc20036dbd8313ed055');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `img`
 --
 
@@ -74,6 +93,25 @@ INSERT INTO `img` (`id`, `lien_img`, `id_article`) VALUES
 (6, 'formation1.jpg', 6),
 (7, 'formation.jpg', 8);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `panier`
+--
+
+CREATE TABLE `panier` (
+  `idart` int(11) NOT NULL,
+  `idclient` int(11) NOT NULL,
+  `qte` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `panier`
+--
+
+INSERT INTO `panier` (`idart`, `idclient`, `qte`) VALUES
+(6, 1, 12);
+
 --
 -- Index pour les tables déchargées
 --
@@ -85,10 +123,23 @@ ALTER TABLE `article`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`iduser`);
+
+--
 -- Index pour la table `img`
 --
 ALTER TABLE `img`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `panier`
+--
+ALTER TABLE `panier`
+  ADD PRIMARY KEY (`idart`,`idclient`),
+  ADD KEY `idclient` (`idclient`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -101,10 +152,27 @@ ALTER TABLE `article`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT pour la table `client`
+--
+ALTER TABLE `client`
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `img`
 --
 ALTER TABLE `img`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `panier`
+--
+ALTER TABLE `panier`
+  ADD CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`idart`) REFERENCES `article` (`id`),
+  ADD CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`idclient`) REFERENCES `client` (`iduser`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

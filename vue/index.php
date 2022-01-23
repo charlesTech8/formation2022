@@ -12,12 +12,12 @@ require_once('../modele/function.php');
 </head>
 
 <body>
+    <?php include_once('menu.php'); ?>
     <!--================Contact Area =================-->
     <div class="jumbotron">
         <div class="row">
             <div class="col-sm-12">
                 <h3 class="text-center">Les articles</h3>
-                <a href="../vue/add-article.php"><button class="btn btn-outline-warning">AJOUTER ARTICLE</button></a>
                 <div class="row pt-5">
                     <?php
                     //updatePrixPromo( 3, 300 );
@@ -25,20 +25,14 @@ require_once('../modele/function.php');
 
                     foreach (listeArticle() as $key => $value) {
                     ?>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="card">
-                                <?php 
-                                    if( get_link_img( $value['id'] ) != '' ){
-                                        ?>
-                                        <img class="card-img-top" src="image/<?= get_link_img( $value['id'] ) ?>" alt="Card image cap">
-                                        <?php
-                                    }
-                                ?>
+                                <img class="card-img-top" src="image/formation.jpg" alt="Card image cap">
                                 <div class="card-body">
-                                    <a href="show.page.php?id=<?= $value['id'] ?>"><h5 class="card-title"><?= $value['nomArticle'] ?></h5></a>
+                                    <a href="show-page.php?id=<?= $value['id'] ?>"><h5 class="card-title"><?= $value['nomArticle'] ?></h5></a>
                                     <p class="card-text"><?= $value['descriptionArticle'] ?></p>
-                                    <a href="#" class="btn btn-primary">Prix Unitaire: <?= $value['prixUnitaire'] ?></a>
-                                    <a href="../modele/traitement.php?id=<?= $value['id'] ?>&actionDelete" class="btn btn-outline-danger">Delete</a>
+                                    <p class="card-text"> PRIX UNITAIRE : <?= $value['prixUnitaire'] ?></p>
+                                    <a href="../vue/show-page.php?id=<?= $value['id'] ?>" class="btn btn-primary">AJOUTER PANIER</a>
                                 </div>
                             </div>
                             <hr>
@@ -48,7 +42,6 @@ require_once('../modele/function.php');
                     ?>
                 </div>
             </div>
-
         </div>
     </div>
     <!--================Contact Area =================-->
